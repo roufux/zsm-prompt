@@ -3,32 +3,13 @@
 from prompt_toolkit import PromptSession, prompt
 from prompt_toolkit.completion import WordCompleter
 import ftime as ft
+from complet import readfile
 import os
 
 
-#def datefmt():
-#	return(datetime.datetime.now().strftime("%Y-%m-%d"))
-	
-#def hourfmt():
-#	return(datetime.datetime.now().strftime("%H-%M-%S"))
-	
-customer_completer = WordCompleter(
-    [
-        "Agde",
-        "Vif",
-        "Cholet",
-        "Cerfacs",
-        "Grades",
-        "Renater",
-        "DGDDI",
-    ],
-    ignore_case=True,
-)
+customer_completer = WordCompleter(readfile('client.txt'),ignore_case=True,)
 
-time_completer = WordCompleter(
-	[
-		f"{ft.datefmt()}" ]
-)
+time_completer = WordCompleter([f"{ft.datefmt()}"])
 
 # Create prompt object.
 client = PromptSession(completer=customer_completer)
@@ -44,7 +25,6 @@ debut = time.prompt('Début: ')
 fin = time.prompt('Fin: ' )
 description = session.prompt('Description: ')
 
-#########################################################
 
 
 parent_dir="/home/ryan/Documents/fait-marquant/"
