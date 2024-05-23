@@ -1,19 +1,10 @@
-import datetime
-import os
+def fait_writer(path, client, objet, serveur, ticket, debut, fin, description):
+    with open(path, 'w') as file:
+        file.write(f'##Client : {client}\n')
+        file.write(f'##Objet : {objet}\n')
+        file.write(f'##Serveur(s) : {serveur}\n')
+        file.write(f'##Ticket : {ticket}\n')
+        file.write(f'##Début : {debut}\n')
+        file.write(f'##Fin : {fin}\n')
+        file.write(f'##Description : {description}')
 
-
-client = ""
-
-parent_dir="/home/ryan/Documents/fait-marquant/"
-folder_name = datetime.datetime.now().strftime("%Y-%m-%d")
-path = os.path.join(parent_dir, folder_name)
-
-if(client == None):
-	file_name = "empty"+datetime.datetime.now().strftime("%H-%M")+".md"
-else:
-    file_name = client+datetime.datetime.now().strftime("%H-%M")+".md"
-
-full_path = path+file_name
-
-with open(full_path, 'w') as file:
-	file.write('Hello World !')

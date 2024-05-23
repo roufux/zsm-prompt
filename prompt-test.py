@@ -1,30 +1,14 @@
 #!/usr/bin/python3.10
 
-from prompt_toolkit import PromptSession, prompt
-from prompt_toolkit.completion import WordCompleter
 import ftime as ft
-from complet import readfile
+from write import fait_writer
 import os
+from faitsession import Fait
 
 
-customer_completer = WordCompleter(readfile('client.txt'),ignore_case=True,)
+fait = Fait()
 
-time_completer = WordCompleter([f"{ft.datefmt()}"])
-
-# Create prompt object.
-client = PromptSession(completer=customer_completer)
-session = PromptSession()
-time = PromptSession(completer=time_completer)
-
-# Do multiple input calls.
-client = client.prompt('Client: ')
-objet = session.prompt('Objet: ')
-serveur = session.prompt('Serveur touché: ')
-ticket = session.prompt('Ticket: ')
-debut = time.prompt('Début: ')
-fin = time.prompt('Fin: ' )
-description = session.prompt('Description: ')
-
+fait.premiere()
 
 
 parent_dir="/home/ryan/Documents/fait-marquant/"
@@ -35,27 +19,18 @@ try :
 	os.mkdir(path)
 except OSError as error:  
     print(error)
-#########################################################    
 
 try :
-	client
+	fait.client
 except NameError:
-	client = "empty"
-	file_name = ft.hourfmt()+"-"+client+".md"
+	fait.client = "empty"
+	file_name = ft.hourfmt()+"-"+fait.client+".md"
 else:
-	file_name = ft.hourfmt()+"-"+client+".md"
+	file_name = ft.hourfmt()+"-"+fait.client+".md"
 
 full_path = path+file_name
 
 print(full_path)
 
-with open(full_path, 'w') as file:
-	file.write(f'##Client : {client}\n')
-	file.write(f'##Objet : {objet}\n')
-	file.write(f'##Serveur(s) : {serveur}\n')
-	file.write(f'##Ticket : {ticket}\n')
-	file.write(f'##Début : {debut}\n')
-	file.write(f'##Fin : {fin}\n')
-	file.write(f'##Description : {description}')
-
+fait_writer(full_path, fait.client, fait.objet, fait.serveur, fait.ticket, fait.debut, fait.fin, fait.description)
 
